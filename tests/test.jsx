@@ -2,7 +2,7 @@ import { StrictMode, Suspense } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { atomWithObservable } from "jotai/utils";
 import { Subject } from "rxjs";
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 
 
 beforeEach(() => {
