@@ -13,6 +13,10 @@ afterEach(() => {
   jest.useRealTimers()
 })
 
+const originalProcessNextTick = process.nextTick
+export const flushPromises = () =>
+  new Promise((resolve) => originalProcessNextTick(resolve))
+
 it('writable count state without initial value', async () => {
   const subject = new Subject()
   const observableAtom = atomWithObservable(() => subject)
@@ -44,6 +48,7 @@ it('writable count state without initial value', async () => {
   fireEvent.click(getByText('button'))
 
   // flushActQueue got stuck here.
+  await flushPromises()
 
   // Then CounterValue component should consume the dispatched value.
   await findByText('count: 9')
