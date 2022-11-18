@@ -2,7 +2,7 @@ import { StrictMode, Suspense } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { atomWithObservable } from "jotai/utils";
 import { Subject } from "rxjs";
-import { fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 
 
 beforeEach(() => {
@@ -42,8 +42,6 @@ it('writable count state without initial value', async () => {
 
   // The promise is resolved through dispatch(9).
   fireEvent.click(getByText('button'))
-
-  // flushActQueue got stuck here.
 
   // Then CounterValue component should consume the dispatched value.
   await findByText('count: 9')
